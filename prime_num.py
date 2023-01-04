@@ -15,3 +15,4 @@ print(all_prime(num))
 
 
 
+
