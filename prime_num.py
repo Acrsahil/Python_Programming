@@ -9,10 +9,5 @@ def all_prime(num):
         if cprime(n) is True:
             prime.append(n)
     return prime
-num = int(input("Enter a numbers"))
+num = int(input("Enter a numbers: "))
 print(all_prime(num))
-
-
-
-
-
