@@ -1,5 +1,6 @@
-stri = ["sahil","tensing","binod","avi","sagar"]
+stri = ["sahil","tensing","binod","avi","sagar","om","maya"]
+new_string = []
 for s in stri:
-    for i in s:
-        if stri["i"]>=4:
-            print(stri)
+    if len(s)>4:
+        new_string.append(s)
+print(new_string)
