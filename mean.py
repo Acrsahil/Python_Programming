@@ -12,3 +12,4 @@ print("The average of given numbers is: ",avg)
 
 
 
+
