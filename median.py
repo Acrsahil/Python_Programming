@@ -13,7 +13,7 @@ if rn%2 == 0:
     median = sum/len(mid)
 else:
     median = lst[rn//2]
-print(median)
+print("the median of the given list is",median)
 
 
 

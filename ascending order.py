@@ -4,4 +4,4 @@ def acceding(num):
             return False
     return True
 num = [1,2,3,1]
-print(acceding(num))
+print(acceding(num))what is t
