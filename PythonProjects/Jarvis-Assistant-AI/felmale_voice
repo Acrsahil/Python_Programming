@@ -1,0 +1,13 @@
+import os
+from gtts import gTTS
+from playsound import playsound
+
+def speak(text):
+    print(" ")
+    tts = gTTS(text=text, lang='en')
+    tts.save("output.mp3")
+    print(f": {text}")
+    playsound("output.mp3")
+    os.remove("output.mp3")
+
+speak("Hello, I am Jarvis AI.")
