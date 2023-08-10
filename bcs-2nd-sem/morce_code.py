@@ -8,30 +8,49 @@ MORSE_CODE = (
  (".-...", "&"), ("---...", ":"), ("-.-.-.", ";"), ("-...-", "="), (".-.-.", "+"), ("-....-", "-"),
  ("..--.-", "_"), (".-..-.", '"'), ("...-..-", "$"), (".--.-.", "@"), ("..--..", "?"), ("-.-.--", "!")
 )
-MORSE_CODE = dict(MORSE_CODE) # changing the data types
+MORSE_CODE = dict((x, y) for x, y in MORSE_CODE)
 
 def print_intro():# first function call
  print("\nWelcome to Texasmorse \nThis program encodes and decodes Morse code.\n")
 
 def encode(message):
-    ans = ""
-    for char in message:  # Convert the whole message to uppercase for encoding
-        if char in MORSE_CODE:
-            ans += MORSE_CODE[char] + " "  # Add Morse code for the character and a space
+    try:
+        present = 0
+        encoded_message = []
+        for c in message:
+            for key, value in MORSE_CODE.items():
+                if c == value:
+                    present = 1
+                    encoded_message.append(key)
+                else:
+                   present = 0
+        if(present):
+           print(" ".join(encoded_message), end = " ")
         else:
-            ans += " "  # If character not found, add a space
-    print(ans)
-
+           print("Invalid Character!")
+        
+    except UnicodeEncodeError:
+        print("Invalid Code!")
    
 
-def decode(message): # third function call
+def decode(message):
     try:
-        for key,value in MORSE_CODE.items():
-            if(message == key): # if the message is values then printing key
-                ans1 = value
-        print(ans1)
-    except UnboundLocalError:
-       print("Invalid Code!")
+        present = 0
+        encoded_message = []
+        morse_chars = message.split()  # Split the input Morse code into individual characters
+        for char in morse_chars:
+            for key, value in MORSE_CODE.items(): #itrating key and value from dictionary
+                if char == key:
+                    present = 1
+                    encoded_message.append(value)
+        if present:
+          print("".join(encoded_message))
+        else:
+           print("Invalid Code!")
+    except :
+        print("Invalid Code!")
+
+
 
 
 def print_outro():
@@ -42,12 +61,13 @@ def get_input(): # second function call
     while(notvalid):
         encodeORDecode = input("\nWould you like to encode (e) or decode (d):",)
 
-        #  to cheak wheather user input the valid character or not
         if(encodeORDecode.lower() == 'e' ): # handeling both cases
+        #  to cheak wheather user input the valid character or not
           message = input("\nWhat message would you like to encode: ")
-          message = message.upper()
-          encode(message)
+          message = message.upper() #change the case before passing
+          encode(message) # function call to encode
           check = input("\nWould you like to encode/decode another message? (y/n): ")
+
           if(check.lower() == 'y'):
             notvalid = 0 # breaks  loops
             get_input()
@@ -59,15 +79,15 @@ def get_input(): # second function call
 
         elif encodeORDecode.lower() == 'd':
           message = input("\nWhat message would you like to decode: ")
-          decode(message)
+          decode(message) # function code to decode
           check = input("\nWould you like to encode/decode another message? (y/n): ")
 
           if(check.lower() == 'y'):
             notvalid = 0 # breaks loops
-            get_input()
+            get_input() # Recurssion call to input
           elif(check.lower() == 'n'):
             notvalid = 0
-            print_outro() 
+            print_outro() # function call to print outro
             break
         else:
           print("Invalid Mode")
