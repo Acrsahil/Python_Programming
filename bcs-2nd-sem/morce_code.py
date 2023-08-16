@@ -15,38 +15,26 @@ def print_intro():# first function call
 
 def encode(message):
     try:
-        present = 0
-        encoded_message = []
+        present = 0  # Initialize present for each character iteration
+        encoded_message = ""
         for c in message:
             for key, value in MORSE_CODE.items():
-                if c == value:
-                    present = 1
-                    encoded_message.append(key)
-                else:
-                   present = 0
-        if(present):
-           print(" ".join(encoded_message), end = " ")
-        else:
-           print("Invalid Character!")
-        
+                if c == value: 
+                    encoded_message = key + " " # adding blank to add space in between
+                    print(encoded_message,end = "")
     except UnicodeEncodeError:
         print("Invalid Code!")
    
 
 def decode(message):
     try:
-        present = 0
-        encoded_message = []
+        encoded_message = ""
         morse_chars = message.split()  # Split the input Morse code into individual characters
         for char in morse_chars:
             for key, value in MORSE_CODE.items(): #itrating key and value from dictionary
                 if char == key:
-                    present = 1
-                    encoded_message.append(value)
-        if present:
-          print("".join(encoded_message))
-        else:
-           print("Invalid Code!")
+                    encoded_message=value # encoding each character to morse code
+                    print(encoded_message,end = "") # printing morse code
     except :
         print("Invalid Code!")
 
