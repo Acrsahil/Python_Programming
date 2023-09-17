@@ -24,6 +24,7 @@ def encode(message):
     except UnicodeEncodeError:
         print("Invalid Code!")
    
+
 def decode(message):
           code_found = 0
           encoded_message = ""
@@ -37,6 +38,11 @@ def decode(message):
         
           if not code_found:
              print("Invalid Code!")
+          
+            
+
+
+
 
 def print_outro():
   print("\nThanks for using the program, goodbye!")
