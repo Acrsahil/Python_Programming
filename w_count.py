@@ -6,4 +6,6 @@ def count_wd(phrase):
             count+=1
     count+=1
     print("Your sentence has",count,"word")
+    print("hello")
+    
 y = count_wd(x)
