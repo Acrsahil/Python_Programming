@@ -1,0 +1,22 @@
+-m pip install neovim
+
+exit
+complex_number = complex('1+3j')
+complex_number
+complex_number = complex(0)
+complex_number
+complex_number = complex(1+3)
+complex_number
+complex_number = complex(5.3)
+complex_number
+complex_number+3
+complex_number+4
+complex_number = complex_number+4
+complex_number
+exit
+a = int()
+type(a)
+a = "sahil"
+print(a)
+print("why you are making things ")
+exit
