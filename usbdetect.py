@@ -1,4 +1,6 @@
 import subprocess
+
+
 def get_usb_device():
     """Get the USB device path based on 'lsblk' output."""
     try:
@@ -6,7 +8,7 @@ def get_usb_device():
         result = subprocess.check_output(["lsblk", "-o", "NAME,MOUNTPOINT"], text=True)
         # Split the result into lines
         devices = result.strip().splitlines()
-        
+
         for device in devices:
             # If the device has no mount point, it might be a USB device
             print(device)
@@ -19,6 +21,7 @@ def get_usb_device():
         print(f"Error checking block devices: {e}")
     return None
 
+
 def mount_device(device):
     """Mount the device only if it isn't mounted."""
     try:
@@ -27,6 +30,7 @@ def mount_device(device):
         print(f"{device} mounted successfully.")
     except subprocess.CalledProcessError as e:
         print(f"Error mounting {device}: {e}")
+
 
 # Get USB device dynamically
 usb_device = get_usb_device()
