@@ -1,6 +1,8 @@
 import os
 import subprocess
 
+
+
 # os.system("ls")
 #
 # # print("***************************************")
@@ -9,6 +11,15 @@ import subprocess
 #
 #
 # os.system("dolphin && exit")
+#
+
+
+def removeint(st):
+    ans = ""
+    for i in st:
+        if not (i > "0" and i < "9"):
+            ans += i
+    return ans
 
 
 def get_usb_partition():
@@ -20,16 +31,26 @@ def get_usb_partition():
     lines = result.stdout.splitlines()
 
     # Search for removable disk (RM = 1)
-    listofusb = []
+    listofusb = set()
     for line in lines:
         columns = line.split()
-        print(columns)
-        if len(columns) >= 3 and columns[1] == "1" and columns[0] not in listofusb and  columns[0].startswith(""):
-        listofusb.append(f"columns[0]1")
-        #     # Now find the partitions for this device
-        #     return f"/dev/{device}1"  # Assuming it's a single partition USB drive
 
-    return None
+        if len(columns) <= 3 and columns[1] == "1":
+            data = removeint(columns[0])
+            if len(listofusb) > 0:
+                listofusb.add(f"{data}")
+            elif len(listofusb) == 0:
+                listofusb.add(f"{data}")
+
+            # Now find the partitions for this device
+
+    if len(listofusb) < 1:
+        return None
+    return listofusb  # Assuming it's a single partition USB drive
 
 
-print(get_usb_partition())
+partation = get_usb_partition()
+i = 1
+for part in partation:
+    data = f"{part}{i}"
+    i += 1

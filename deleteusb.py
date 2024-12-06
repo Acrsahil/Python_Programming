@@ -1,26 +1,32 @@
 import os
 import subprocess
 import platform
+import test
 
 
 def deleteusb():
     name = subprocess.check_output(["whoami"], text=True).strip()
-    print(name)
-    paths = f"../../run/media/{name}/"
-    result = subprocess.check_output(["ls", paths], text=True)
-    nameofusb = result.strip()
-    paths += nameofusb
-    print(paths)
-    for file in os.listdir(paths):
-        # deletes only file
-        # if os.path.isfile(f"{paths}/{file}"):
-        #     os.system(f"rm {paths}/{file}")
-        #     print(f"{file} deleted sucessfully!")
+    paths = f"/run/media/{name}/"
 
-        # deletes everything that starts with day
-        if file.startswith("day"):
-            os.system(f"rm -rf {paths}/{file}")
-            print(f"{file} deleted sucessfully!")
+    results = subprocess.check_output(["ls", paths], text=True, cwd="/")
+    results = results.split()
+
+    temppath = paths
+    for result in results:
+        temppath += result
+
+        for file in os.listdir(temppath):
+            # deletes only file
+            # if os.path.isfile(f"{paths}/{file}"):
+            #     os.system(f"rm {paths}/{file}")
+            #     print(f"{file} deleted sucessfully!")
+
+            # deletes everything that starts with day
+            # os.system(f"ls {paths}")
+            if file.startswith("day"):
+                os.system(f"rm -rf {temppath}/{file}")
+                print(f"{file} deleted sucessfully!")
+        temppath = paths
 
 
 def is_device_mounted(device):
@@ -39,13 +45,17 @@ def mount_device(device):
     """Mount the device only if it isn't mounted."""
     if not is_device_mounted(device):
         print(f"{device} is not mounted, mounting now...")
-        os.system(f"udisksctl mount -b {device}")
+        print(device)
+        os.system(f"udisksctl mount -b /dev/{device}")
 
 
 current_os = platform.system()
 
 
 if current_os == "Linux":
-    device = "/dev/sda1"
-    mount_device(device)
-    deleteusb()  # to delte contents in usb drive
+    partation = test.get_usb_partition()
+    if partation != None:
+        for part in partation:
+            data = f"{part}1"
+            mount_device(data)
+        deleteusb()
